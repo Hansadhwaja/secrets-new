@@ -21,7 +21,7 @@ const Card = ({ secret, id,author }) => {
 
 
   return (
-    <div className='flex justify-between items-center w-full h-fit bg-slate-200 border border-slate-300 mt-5 shadow-xl text-left p-3 mb-4'>
+    <div className='sm:flex-row flex flex-col justify-between items-center w-full h-fit bg-slate-200 border border-slate-300 mt-5 shadow-xl text-left p-3 mb-4'>
       <div>
         <p className='text-md text-slate-500'>{secret}</p>
       </div>
