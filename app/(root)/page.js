@@ -1,12 +1,10 @@
 import { Button } from "@/components/ui/button";
-import { createUser } from "@/lib/actions/user.action";
-import ConnectToDB from "@/lib/mongoose";
 import { currentUser } from "@clerk/nextjs";
 import Link from "next/link";
 
 
 export default async function Home() {
-  const user = currentUser();
+  const user = await currentUser();
   return (
     <section className=" w-full min-h-screen">
       <div className="flex justify-center items-center w-full h-svh">

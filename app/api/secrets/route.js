@@ -1,6 +1,7 @@
 import Secret from "@/lib/models/secret.model";
 import User from "@/lib/models/user.model";
 import ConnectToDB from "@/lib/mongoose";
+import mongoose from "mongoose";
 import { NextResponse } from "next/server";
 
 
@@ -23,8 +24,14 @@ export async function GET(){
 
 export async function DELETE(request){
     const id=request.nextUrl.searchParams.get('id');
+    const {author}=await request.json();
     await ConnectToDB();
-    const secrets=await Secret.findByIdAndDelete(id);
-    return NextResponse.json({secrets},{status:200});
+    const deletedSecret=await Secret.findByIdAndDelete(id);
+    // await User.updateOne(
+    //     { _id:objectId },
+    //     { $pull: { secrets: id } }
+    // );
+    await User.findOneAndUpdate({userId:author},{$pull:{secrets:id}});
+    return NextResponse.json({deletedSecret},{status:200});
 }
 

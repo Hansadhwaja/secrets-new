@@ -26,8 +26,9 @@ const SubmitCard = ({author}) => {
             return;
         }
         const response= await createSecret({
-            description:toTitleCase(secret),
-            author:author
+            author:author,
+            description:toTitleCase(secret)
+           
         });
         
         router.refresh();

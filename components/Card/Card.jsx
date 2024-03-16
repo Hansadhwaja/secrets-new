@@ -8,11 +8,13 @@ import { deleteSecret } from '@/lib/actions/secret.action'
 import { useRouter } from 'next/navigation'
 
 
-const Card = ({ secret, id }) => {
+
+
+const Card = ({ secret, id,author }) => {
   const router = useRouter();
   const deleteSecretFun = async () => {
     await ConnectToDB();
-    const response = await deleteSecret({ id });
+    const response = await deleteSecret({ id,author });
     console.log(response);
     router.refresh();
   }

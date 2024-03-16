@@ -9,12 +9,20 @@ import { useRouter } from "next/navigation"
 import { useState } from "react"
 
 const EditCard = ({Secret,id}) => {
+    function toTitleCase(str) {
+        return str.replace(
+          /\w\S*/g,
+          function(txt) {
+            return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+          }
+        );
+      }
     const router=useRouter();
     const [secret, setSecret] = useState(Secret);
     const handleEdit = async (e) => {
         e.preventDefault();
         const response= await editSecret({
-            description:secret,
+            description:toTitleCase(secret),
             id:id
         });
         router.refresh();
