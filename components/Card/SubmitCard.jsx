@@ -7,33 +7,38 @@ import { createSecret } from "@/lib/actions/secret.action"
 import { useRouter } from "next/navigation"
 
 import { useState } from "react"
+import { useToast } from "../ui/use-toast"
 
-const SubmitCard = ({author}) => {
+const SubmitCard = ({ author }) => {
     function toTitleCase(str) {
         return str.replace(
-          /\w\S*/g,
-          function(txt) {
-            return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
-          }
+            /\w\S*/g,
+            function (txt) {
+                return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+            }
         );
-      }
-    const router=useRouter();
+    }
+    const { toast } = useToast();
+    const router = useRouter();
     const [secret, setSecret] = useState('');
     const handleSubmit = async (e) => {
         e.preventDefault();
-        if(!secret){
+        if (!secret) {
             alert("Secret is Required");
             return;
         }
-        const response= await createSecret({
-            author:author,
-            description:toTitleCase(secret)
-           
+        const response = await createSecret({
+            author: author,
+            description: toTitleCase(secret)
+
         });
-        
+        toast({
+            title:response.message
+        })
+
         router.refresh();
-        router.push('/dashboard');
-       
+        router.push('/');
+
     }
     return (
         <div>
@@ -45,11 +50,11 @@ const SubmitCard = ({author}) => {
                     </div>
                     <div className="flex flex-col space-y-1.5">
                         <Label className="text-lg font-bold">Secret</Label>
-                        <Textarea 
-                        className="font-semibold text-slate-700"
-                        placeholder="Enter Your Secret" 
-                        value={secret} 
-                        onChange={(e) => setSecret(e.target.value)} />
+                        <Textarea
+                            className="font-semibold text-slate-700"
+                            placeholder="Enter Your Secret"
+                            value={secret}
+                            onChange={(e) => setSecret(e.target.value)} />
                     </div>
                     <Button type="submit">Submit</Button>
                 </div>

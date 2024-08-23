@@ -2,7 +2,7 @@
 import { ClerkProvider } from "@clerk/nextjs";
 import "../globals.css";
 import Navbar from "@/components/Shared/Navbar";
-
+import { Toaster } from "@/components/ui/toaster"
 
 export const metadata = {
   title: "Secret App",
@@ -16,7 +16,9 @@ export default function RootLayout({ children }) {
         <body className="bg-[#EEEEEE]">
         <Navbar />
         {children}
+        <Toaster />
         </body>
+     
       </html>
     </ClerkProvider>
 
